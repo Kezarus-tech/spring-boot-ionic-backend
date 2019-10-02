@@ -108,7 +108,7 @@ public class CursomcApplication implements CommandLineRunner {
 		ped1.setPagamento(pagto1);
 		
 		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, 
-				null, sdf.parse("20/10/20107 00:00"));
+				null, sdf.parse("20/10/2017 00:00"));
 		ped2.setPagamento(pagto2);
 		
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
