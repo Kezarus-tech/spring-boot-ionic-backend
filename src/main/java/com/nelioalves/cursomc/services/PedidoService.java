@@ -21,17 +21,19 @@ import javassist.tools.rmi.ObjectNotFoundException;
 @Service
 public class PedidoService {
 	@Autowired
-	PedidoRepository repo;
+	private PedidoRepository repo;
 	@Autowired
-	BoletoService boletoService;
+	private BoletoService boletoService;
 	@Autowired
-	ProdutoService produtoService;
+	private ProdutoService produtoService;
 	@Autowired
-	ClienteService clienteService;
+	private ClienteService clienteService;
 	@Autowired
-	PagamentoRepository pagamentoRepo;
+	private PagamentoRepository pagamentoRepo;
 	@Autowired
-	ItemPedidoRepository itemPedidoRepo;
+	private ItemPedidoRepository itemPedidoRepo;
+	@Autowired
+	private EmailService emailService; 
 
 	public Pedido find(Integer id) throws ObjectNotFoundException {
 		Optional<Pedido> obj = repo.findById(id);
@@ -63,7 +65,7 @@ public class PedidoService {
 		}
 		itemPedidoRepo.saveAll(obj.getItens());
 		
-System.out.println(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		
 		return obj;
 	}
